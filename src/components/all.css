@@ -1,0 +1,22 @@
+#card{
+border: 1px solid;
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+
+}
+
+#box{
+width: 200px;
+display: flex;
+gap:100px;
+}
+
+#team{
+    border:1px solid red;
+    width:700px;
+}
+
+#teamIn{
+    display: flex;
+    gap:30px
+}
