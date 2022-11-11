@@ -1,6 +1,5 @@
-import { isDisabled } from '@testing-library/user-event/dist/utils'
-import axios from 'axios'
-import React, { isValidElement, useEffect, useState } from 'react'
+
+import React, { useState } from 'react'
 import "./all.css"
 
 
@@ -32,8 +31,7 @@ const employees = [{ "id": 1, "first_name": "Jaymee", "last_name": "Imm", "email
      { "id": 16, "first_name": "Betty", "last_name": "Simm", "email": "bsimmf@engadget.com", "gender": "Female", "age": 26 }]
 
      const [team, setTeam] = useState([])
-     const [data, setData] = useState([])
-     const [dis, setDis] = useState(false)
+   
 
 
 
@@ -46,10 +44,16 @@ let avg = team.reduce((acc, item) => {
 
 
 const handleAdd = (item2)=>{
-    setDis(true)
-        
-        setTeam([...team,item2])
-    
+
+let flag = false
+for(let i=0; i<team.length; i++){
+   if(team[i].id===item2.id){
+    flag = true
+   }
+}
+  if(!flag){
+    setTeam([...team,item2])
+  }  
 
 
     }
@@ -62,7 +66,7 @@ const handleAdd = (item2)=>{
 
 
 const handleRemove = (id)=>{
-   console.log("remove",id)
+ 
     let remove = team.filter((item)=>{
         return item.id !== id
       })
@@ -72,12 +76,13 @@ const handleRemove = (id)=>{
 }
 
 const handleSort = ()=>{
-    let sorted = team.sort((a,b)=>{
+    team.sort((a,b)=>{
        return a.age - b.age
    })
    
-   setTeam(sorted)
-   console.log("data sort", sorted)
+   let data = [...team]
+   setTeam(data)
+   
    }
 
 
@@ -90,7 +95,6 @@ const handleSort = ()=>{
                     <div key={item.id} id="card">
                         <h4>{item.first_name}</h4>
                         <h5>{item.age}</h5>
-                        {/* <button onClick={()=>setTeam([...team,item])}   >Add</button> */}
                         <button onClick={()=>handleAdd(item)} >Add</button>
                     </div>
                 ))}
